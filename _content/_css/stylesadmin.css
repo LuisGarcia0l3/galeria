@@ -1,0 +1,454 @@
+
+/*********************************************************************/
+
+
+#app {
+    display: flex;
+
+}
+
+#app_menu {
+    width: 5%;
+    display: flex;
+    background-color: #fff;
+    color: #000;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 5% 1%;
+    bottom: 0;
+    overflow-y: auto;
+    flex-direction: column;
+}
+
+#app_content {
+    flex: 1;
+    padding-left: 7%;
+    background-color: #f4f4f4;
+    overflow-y: auto;
+    height: 90vh;
+
+}
+
+/* Estilos de los elementos del menú */
+.menu-item {
+    padding: 10px;
+    margin: 10% 2%;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.menu-item img {
+    width: 70%;
+}
+
+/* Estilos para resaltar el elemento activo del menú */
+.active {
+    background-color: #b3f3ce;
+}
+
+
+
+
+
+/*************************************************************************/
+
+
+
+
+.ctn_principal {
+    display: flex;
+    height: 100%;
+    margin: 0 auto;
+    width: 95%;
+    flex-direction: column;
+}
+
+.ctn_tittle {
+    margin: 2% auto 1%;
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.ctn_navUpload {
+    display: flex;
+    width: 100%;
+    margin: 0% auto 0;
+    justify-content: space-around;
+}
+
+.ctn_navUpload_option {
+    height: 35px;
+    background-color: rgb(216, 216, 216);
+    display: flex;
+    font-size: .8em;
+    align-items: center;
+    font-weight: 600;
+    width: 33%;
+    text-align: center;
+    cursor: pointer;
+}
+
+.ctn_navUpload_option span {
+    width: 100%;
+    text-align: center;
+}
+
+div#configImages {
+    margin: 1% auto;
+    width: 100%;
+    background-color: #fff;
+}
+
+form.formDataGeneral {
+    background-color: #fff;
+    padding: 3% 3%;
+}
+
+
+/********************************************************************************/
+
+.ctn_configbutton {
+    width: 100%;
+    margin: 0% auto 1%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+}
+
+
+.ctn_configbutton button {
+    background-color: #5cb85c;
+    padding: .5% 5%;
+    color: #fff;
+    border-radius: 10px;
+    font-size: .9em;
+    border-style: none;
+    cursor: pointer;
+}
+
+
+.titleDiv {
+    display: flex;
+    width: 100%;
+    font-size: .9em;
+    margin: 1% auto 0;
+    align-items: center;
+    font-weight: 600;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.titleDiv> :nth-child(1) {
+    width: 30%;
+    color: #fff;
+}
+
+.titleDiv> :nth-child(2) {
+    text-align: center;
+    width: 30%;
+}
+
+.titleDiv> :nth-child(3) {
+    width: 30%;
+
+}
+
+
+.titleDivcenter {
+    display: flex;
+    width: 90%;
+    font-size: .9em;
+    margin: 2% auto 1%;
+    align-items: center;
+    font-weight: 600;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+}
+
+.formDataGeneral_preg1 input[type="text"] {
+    width: 70%;
+}
+
+.formDataGeneral_preg2 input[type="date"] {
+    width: 70%;
+}
+
+.ctn_centers {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.ctn_centers div {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.formDataGeneral_preg {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+.formDataGeneral_preg span {
+    width: 25%;
+    font-size: .8em;
+    font-weight: 600;
+    margin: 0% 0 2%;
+    padding: 0.5% 5%;
+}
+
+.formDataGeneral_preg input {
+    font-size: 1em;
+    font-weight: 600;
+    margin: 0% 0 2%;
+    padding: 0.5% 5%;
+}
+
+button#btn_addimage {
+    border: none;
+    background-color: #baf5e1;
+    cursor: pointer;
+    padding: 4% 2%;
+    margin: 0px 0 0 59%;
+    font-size: .8em;
+}
+
+
+div#areaimages {
+    background-color: #fff;
+    display: flex;
+    width: 95%;
+    margin: 1% auto 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+    justify-content: space-evenly;
+}
+/***********************************************************************************/
+
+.repeated-images-container {
+    display: flex;
+    overflow-x: auto;
+    flex-direction: row;
+    align-items: center;
+}
+
+
+img.repeated-image {
+    width: 50%;
+}
+
+.completed {
+    background-color: #5cb85c;
+    color: #fff;
+}
+
+
+/*****************************************  Clases para step   ***********************************************/
+
+
+
+.ctn_datareviewGeneral {
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+.ctn_datareviewImages {
+    width: 90%;
+    margin: 2% auto 0;
+}
+
+.ctn_imgreview {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.ctn_datareviewGeneral div {
+    display: flex;
+    margin: 2% 0 0 0;
+    justify-content: space-around;
+}
+
+.ctn_imgreview div {
+    width: 18%;
+    display: flex;
+    margin: 0 0 2% 2%;
+    flex-direction: column;
+}
+
+.ctn_imgreview img {
+    width: 100%;
+}
+
+
+
+/*****************/
+
+
+
+
+.valid-aspect-ratio {
+    position: absolute;
+    z-index: 2;
+    background-color: rgba(0, 255, 0, 0.129);
+    width: 100%;
+    height: 100%;
+}
+.invalid-aspect-ratio {
+    background-color: rgba(255, 0, 0, 0.5); /* Transparencia roja para relación de aspecto inválida */
+}
+
+
+.omg_editor {
+    position: relative;
+    margin: 1%;
+    width: 18%;
+    overflow: hidden;
+}
+
+.image-container {
+    position: relative;
+}
+
+.image-container img {
+    width: 100%;
+}
+
+.aspect-ratio-container {
+    position: relative;
+    padding-top: 100%; /* Mantener el aspecto de la imagen */
+}
+
+
+.omg_editor button {
+    position: absolute;
+    z-index: 3;
+}
+
+.center-button {
+    top: 50%;
+    left: 50%;
+    color: #000;
+    cursor: pointer;
+    border: none;
+    transform: translate(-50%, -50%);
+    padding: 2.5% 6%;
+}
+
+.close-button {
+    top: 0;
+    background-color: red;
+    color: #fff;
+    cursor: pointer;
+    right: 0;
+    border: none;
+    padding: 2.5% 6%;
+}
+
+
+/***********************************************************************************/
+
+
+.ctn_cropperEditor {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+/*******************************************************************************************/
+
+
+
+.notification-panel {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 300px;
+        z-index: 5;
+        max-height: 80vh;
+        overflow-y: auto;
+        background-color: #f3f4f6;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .notification {
+        background-color: #fff;
+        border-left: 6px solid #6b46c1;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+        padding: 10px;
+           transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
+    }
+    .notification-title {
+        font-weight: bold;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    .notification-text {
+        font-size: 0.875rem;
+        color: #4a5568;
+    }
+    .notification-image {
+        display: block;
+        margin: 0 auto 0.5rem auto;
+        border-radius: 4px;
+    }
+
+
+.notification.show {
+    transform: translateX(0);
+}
+
+
+/*****************************************************************************************/
+
+.Modal_editor {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(3px);
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    overflow: auto;
+}
+
+
+.Modal_editor_content {
+    background: rgb(255 255 255 / 90%);
+    margin: 5% auto;
+    padding: 20px;
+    width: 60%;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.32);
+    backdrop-filter: blur(19px);
+    -webkit-backdrop-filter: blur(19px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.cropper-buttons-container {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    justify-content: space-evenly;
+}
