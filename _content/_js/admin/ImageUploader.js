@@ -59,24 +59,24 @@ class ImageUploader {
           const img = new Image();
           img.onload = () => {
             const aspectRatio = this.calculateAspectRatio(img.width, img.height);
-              const existingImage = this.createGallery.getDatosImagenes().find(img => img.name === file.name);
+            const existingImage = this.createGallery.getDatosImagenes().find(img => img.name === file.name);
 
-              if (!existingImage) {
-                console.log(this.createGallery)
-                ImageRenderer.createImageContainer(file, reader, aspectRatio, img, this.createGallery, this.areaImages, this.modal);
-              } else {
-                if (!repeatedImagesMap[file.name]) {
-                  repeatedImagesMap[file.name] = [];
-                }
-                repeatedImagesMap[file.name].push({
-                  src: reader.result,
-                  name: file.name,
-                  type: file.type,
-                  aspectRatio: aspectRatio,
-                  orientation: img.width > img.height ? 'horizontal' : 'vertical'
-                });
+            if (!existingImage) {
+              console.log(this.createGallery)
+              ImageRenderer.createImageContainer(file, reader, aspectRatio, img, this.createGallery, this.areaImages, this.modal);
+            } else {
+              if (!repeatedImagesMap[file.name]) {
+                repeatedImagesMap[file.name] = [];
               }
-              RepeatedImagesRenderer.renderRepeatedImages(repeatedImagesMap, this.modal);
+              repeatedImagesMap[file.name].push({
+                src: reader.result,
+                name: file.name,
+                type: file.type,
+                aspectRatio: aspectRatio,
+                orientation: img.width > img.height ? 'horizontal' : 'vertical'
+              });
+            }
+            RepeatedImagesRenderer.renderRepeatedImages(repeatedImagesMap, this.modal);
           };
           img.src = reader.result;
         });
@@ -89,45 +89,63 @@ class ImageUploader {
 
 
 class CropperHandler {
-  static openCropperModal(imageSource, modal) {
+  static openCropperModal(dataImage, modal) {
     const containerEditor = document.createElement('div');
     containerEditor.classList.add('ctn_cropperEditor');
 
     const cropperContainer = document.createElement('div');
     cropperContainer.classList.add('cropper-container');
     cropperContainer.style.height = '450px';
-    cropperContainer.style.width = '650px';
-
+    cropperContainer.style.width = '70%';
 
     const cropperImage = document.createElement('img');
     cropperImage.id = 'cropper-image';
-    cropperImage.src = imageSource;
+    cropperImage.src = dataImage.src;
     cropperImage.alt = 'Cropped Image';
     cropperContainer.appendChild(cropperImage);
 
     const cropperButtonsContainer = document.createElement('div');
-    cropperButtonsContainer.classList.add('cropper-buttons-container');
+    cropperButtonsContainer.classList.add('cropper-config-image');
 
+    const cropperConfigTitle = document.createElement('div');
+    cropperConfigTitle.classList.add('cropper-config-title');
+    const configTitleSpan = document.createElement('span');
+    configTitleSpan.textContent = 'Configuración de imagen';
+    cropperConfigTitle.appendChild(configTitleSpan);
+    cropperButtonsContainer.appendChild(cropperConfigTitle);
+
+    const buttonsDiv = document.createElement('div');
     const rotateButton = document.createElement('button');
     rotateButton.textContent = 'Rotar';
     rotateButton.addEventListener('click', () => {
       cropper.rotate(90);
     });
-    cropperButtonsContainer.appendChild(rotateButton);
-
+    buttonsDiv.appendChild(rotateButton);
     const flipHorizontalButton = document.createElement('button');
     flipHorizontalButton.textContent = 'Espejo Horizontal';
     flipHorizontalButton.addEventListener('click', () => {
       cropper.scaleX(-cropper.getData().scaleX || -1);
     });
-    cropperButtonsContainer.appendChild(flipHorizontalButton);
-
+    buttonsDiv.appendChild(flipHorizontalButton);
     const flipVerticalButton = document.createElement('button');
     flipVerticalButton.textContent = 'Espejo Vertical';
     flipVerticalButton.addEventListener('click', () => {
       cropper.scaleY(-cropper.getData().scaleY || -1);
     });
-    cropperButtonsContainer.appendChild(flipVerticalButton);
+    buttonsDiv.appendChild(flipVerticalButton);
+    cropperButtonsContainer.appendChild(buttonsDiv);
+
+    const etiquetarPersonasDiv = document.createElement('div');
+    const etiquetarPersonasSpan = document.createElement('span');
+    etiquetarPersonasSpan.textContent = 'Etiquetar personas';
+    etiquetarPersonasDiv.appendChild(etiquetarPersonasSpan);
+    cropperButtonsContainer.appendChild(etiquetarPersonasDiv);
+
+    const agregarObjetosDiv = document.createElement('div');
+    const agregarObjetosSpan = document.createElement('span');
+    agregarObjetosSpan.textContent = 'Agregar Objetos';
+    agregarObjetosDiv.appendChild(agregarObjetosSpan);
+    cropperButtonsContainer.appendChild(agregarObjetosDiv);
 
     containerEditor.appendChild(cropperContainer);
     containerEditor.appendChild(cropperButtonsContainer);
@@ -137,6 +155,7 @@ class CropperHandler {
       text: 'Ajusta la imagen según tus necesidades',
       htmlContent: containerEditor,
       buttons: [
+        { label: 'Guardar', action: () => { console.log("Guardar imagen") } },
         { label: 'Cerrar', action: () => { modal.close(); } }
       ],
       modalClass: 'Modal_editor',
@@ -178,7 +197,9 @@ class ImageRenderer {
     containerDiv.appendChild(centerButton);
 
     centerButton.addEventListener('click', () => {
-      CropperHandler.openCropperModal(reader.result, modal);
+      const imageName = file.name; // Suponiendo que reader.result contiene el nombre de la imagen
+      const imageData = createGallery.steps[1].dataO.images.find(img => img.name == imageName);
+        CropperHandler.openCropperModal(imageData, modal);
     });
 
     const closeButton = document.createElement('button');

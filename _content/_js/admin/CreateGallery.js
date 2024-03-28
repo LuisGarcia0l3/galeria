@@ -406,8 +406,10 @@ class ImageUploadArea {
             containerDiv.appendChild(centerButton);
 
             centerButton.addEventListener('click', () => {
-                CropperHandler.openCropperModal(imageData.src, this.createGallery.modal);
-            });
+                const imageName = file.name; // Suponiendo que reader.result contiene el nombre de la imagen
+                const imageData = createGallery.steps[1].dataO.images.find(img => img.name == imageName);
+                  CropperHandler.openCropperModal(imageData, modal);
+              });
 
             const closeButton = document.createElement('button');
             closeButton.classList.add('close-button');
@@ -473,7 +475,7 @@ class ReviewGenerator {
         imagenes.forEach((imagen, index) => {
             const listItem = document.createElement('div');
             const imageElement = document.createElement('img');
-            imageElement.src = imagen.src; // asumiendo que src es una propiedad válida
+            imageElement.src = imagen.src; 
             listItem.appendChild(imageElement);
             const nameSpan = document.createElement('span');
             nameSpan.textContent = `Nombre: ${imagen.name}`;

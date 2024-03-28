@@ -1,6 +1,5 @@
 class AppController {
     constructor() {
-        this.httpRequestService = new HttpRequestService();
         this.container = document.getElementById('app');
         this.init();
         this.bindMenuHandlers();
@@ -51,7 +50,7 @@ class AppController {
         const menuItems = document.querySelectorAll('.menu-item');
         menuItems.forEach(item => {
             item.addEventListener('click', () => {
-                const option = item.getAttribute('data-option'); // Obtener la opción asociada con la imagen
+                const option = item.getAttribute('data-option'); 
                 this.handleMenuOptionClick(option);
             });
         });
