@@ -78,6 +78,11 @@ class ImageHandler {
         this.createGallery = createGallery;
     }
 
+
+    updateImage(data){
+        
+    }
+
     addImage(data) {
         if (!this.createGallery.steps[this.createGallery.currentStep].data.images) {
             this.createGallery.steps[this.createGallery.currentStep].data.images = [];
@@ -237,6 +242,10 @@ class CreateGallery {
         this.imageHandler.addImage(data);
     }
 
+    updateImage(data) {
+        this.imageHandler.updateImage(data);
+    }
+
     removeImage(name) {
         this.imageHandler.removeImage(name);
     }
@@ -253,7 +262,6 @@ class CreateGallery {
         return this.steps[1].data.images || [];
     }
 }
-
 
 class FormGenerator {
     constructor(createGallery) {

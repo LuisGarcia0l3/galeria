@@ -87,68 +87,100 @@ class ImageUploader {
   }
 }
 
+class ConfiguracionImagen {
+  constructor(container) {
+    this.container = container;
+  }
+
+  showConfigMenu() {
+    // Lógica para mostrar el contenido de configuración de imagen en el contenedor común
+    this.container.innerHTML = '<p>Contenido de configuración de imagen</p>';
+  }
+}
+
+class EtiquetarPersonas {
+  constructor(container) {
+    this.container = container;
+  }
+
+  showConfigMenu() {
+    // Lógica para mostrar el contenido de etiquetar personas en el contenedor común
+    this.container.innerHTML = '<p>Contenido de etiquetar personas</p>';
+  }
+}
+
+class AgregarObjetos {
+  constructor(container) {
+    this.container = container;
+  }
+
+  showConfigMenu() {
+    // Lógica para mostrar el contenido de agregar objetos en el contenedor común
+    this.container.innerHTML = '<p>Contenido de agregar objetos</p>';
+  }
+}
 
 class CropperHandler {
   static openCropperModal(dataImage, modal) {
-    const containerEditor = document.createElement('div');
-    containerEditor.classList.add('ctn_cropperEditor');
 
-    const cropperContainer = document.createElement('div');
-    cropperContainer.classList.add('cropper-container');
-    cropperContainer.style.height = '450px';
-    cropperContainer.style.width = '70%';
+    const dataOrientacion = dataImage.orientation;
+    const dataApectRatio = dataImage.aspectRatio;
+
+    console.log(dataOrientacion, dataApectRatio)
+
+    const containerEditor = document.createElement('div');
+    containerEditor.classList.add('ctn_ImageEditor');
+
+    const ContainerImageWorkspace = document.createElement('div');
+    ContainerImageWorkspace.classList.add('container_imageEdit');
 
     const cropperImage = document.createElement('img');
-    cropperImage.id = 'cropper-image';
+    cropperImage.id = 'image_edit';
     cropperImage.src = dataImage.src;
     cropperImage.alt = 'Cropped Image';
-    cropperContainer.appendChild(cropperImage);
+    ContainerImageWorkspace.appendChild(cropperImage);
 
-    const cropperButtonsContainer = document.createElement('div');
-    cropperButtonsContainer.classList.add('cropper-config-image');
+    const containerConfig = document.createElement('div');
+    containerConfig.classList.add('config-image');
 
-    const cropperConfigTitle = document.createElement('div');
-    cropperConfigTitle.classList.add('cropper-config-title');
+    const ContainerConfigNav = document.createElement('div');
+    ContainerConfigNav.classList.add('config-image_nav');
+
+    const cropperConfigImage = document.createElement('div');
+    cropperConfigImage.classList.add('config-image');
     const configTitleSpan = document.createElement('span');
     configTitleSpan.textContent = 'Configuración de imagen';
-    cropperConfigTitle.appendChild(configTitleSpan);
-    cropperButtonsContainer.appendChild(cropperConfigTitle);
+    cropperConfigImage.appendChild(configTitleSpan);
+    ContainerConfigNav.appendChild(cropperConfigImage);
 
-    const buttonsDiv = document.createElement('div');
-    const rotateButton = document.createElement('button');
-    rotateButton.textContent = 'Rotar';
-    rotateButton.addEventListener('click', () => {
-      cropper.rotate(90);
-    });
-    buttonsDiv.appendChild(rotateButton);
-    const flipHorizontalButton = document.createElement('button');
-    flipHorizontalButton.textContent = 'Espejo Horizontal';
-    flipHorizontalButton.addEventListener('click', () => {
-      cropper.scaleX(-cropper.getData().scaleX || -1);
-    });
-    buttonsDiv.appendChild(flipHorizontalButton);
-    const flipVerticalButton = document.createElement('button');
-    flipVerticalButton.textContent = 'Espejo Vertical';
-    flipVerticalButton.addEventListener('click', () => {
-      cropper.scaleY(-cropper.getData().scaleY || -1);
-    });
-    buttonsDiv.appendChild(flipVerticalButton);
-    cropperButtonsContainer.appendChild(buttonsDiv);
+
 
     const etiquetarPersonasDiv = document.createElement('div');
+    etiquetarPersonasDiv.classList.add('config-Person');
+
     const etiquetarPersonasSpan = document.createElement('span');
     etiquetarPersonasSpan.textContent = 'Etiquetar personas';
     etiquetarPersonasDiv.appendChild(etiquetarPersonasSpan);
-    cropperButtonsContainer.appendChild(etiquetarPersonasDiv);
+    ContainerConfigNav.appendChild(etiquetarPersonasDiv);
 
     const agregarObjetosDiv = document.createElement('div');
+    agregarObjetosDiv.classList.add('config-image_objets');
+
     const agregarObjetosSpan = document.createElement('span');
     agregarObjetosSpan.textContent = 'Agregar Objetos';
     agregarObjetosDiv.appendChild(agregarObjetosSpan);
-    cropperButtonsContainer.appendChild(agregarObjetosDiv);
+    ContainerConfigNav.appendChild(agregarObjetosDiv);
 
-    containerEditor.appendChild(cropperContainer);
-    containerEditor.appendChild(cropperButtonsContainer);
+    const containerConfigOptions = document.createElement('div');
+    containerConfigOptions.id = 'configOptionsImage';
+    containerConfigOptions.classList.add('config-image_options');
+
+    containerConfig.appendChild(ContainerConfigNav)
+    containerConfig.appendChild(containerConfigOptions)
+
+    containerEditor.appendChild(ContainerImageWorkspace);
+    containerEditor.appendChild(containerConfig);
+
 
     modal.open({
       title: 'Editar imagen',
@@ -162,15 +194,25 @@ class CropperHandler {
       contentClass: 'Modal_editor_content'
     });
 
-    const cropper = new Cropper(document.getElementById('cropper-image'), {
-      aspectRatio: 16 / 9,
+    // Crear instancias de las clases de opciones de la barra lateral
+    const configuracionImagen = new ConfiguracionImagen(containerConfigOptions);
+    const etiquetarPersonas = new EtiquetarPersonas(containerConfigOptions);
+    const agregarObjetos = new AgregarObjetos(containerConfigOptions);
+
+    // Manejar eventos de clic en las opciones de la barra lateral
+    cropperConfigImage.addEventListener('click', () => {
+      configuracionImagen.showConfigMenu();
+    });
+
+    etiquetarPersonasDiv.addEventListener('click', () => {
+      etiquetarPersonas.showConfigMenu();
+    });
+
+    agregarObjetosDiv.addEventListener('click', () => {
+      agregarObjetos.showConfigMenu();
     });
   }
 }
-
-
-
-
 
 class ImageRenderer {
   static createImageContainer(file, reader, aspectRatio, img, createGallery, areaImages, modal) {
@@ -224,9 +266,6 @@ class ImageRenderer {
     });
   }
 }
-
-
-
 
 class RepeatedImagesRenderer {
   static renderRepeatedImages(repeatedImagesMap, modal) {
