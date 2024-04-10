@@ -1,2 +1,2 @@
 @echo off
-start cmd
+PowerShell -NoProfile -ExecutionPolicy Bypass -Command "Start-Process powershell -Verb RunAs"

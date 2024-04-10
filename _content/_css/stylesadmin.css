@@ -278,13 +278,21 @@ img.repeated-image {
 .ctn_imgreview {
     display: flex;
     flex-wrap: wrap;
+    margin: 2% 0;
     align-items: center;
 }
-
 .ctn_datareviewGeneral div {
     display: flex;
     margin: 2% 0 0 0;
     justify-content: space-around;
+}
+
+.ctn_datareviewGeneral span:first-child {
+    font-weight: bold;
+}
+
+.ctn_datareviewImages span:first-child {
+    font-weight: bold;
 }
 
 .ctn_imgreview div {
@@ -377,7 +385,8 @@ img.repeated-image {
     align-items: center;
     background-color: azure;
     justify-content: space-around;
-    padding: 1%;
+    margin: 1% 0;
+    /* padding: 1%; */
 }
 
 
@@ -386,14 +395,22 @@ img.repeated-image {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: #fff;
 }
 
 .config-image {
-    width: 25%;
+    width: 30%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+}
+
+div#configOptionsImage {
+    width: 90%;
+    margin: 5% auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .container_imageEdit img {
@@ -405,12 +422,15 @@ img.repeated-image {
 .config-image_nav {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    width: 90%;
+    justify-content: space-around;
     text-align: center;
 }
-
 .config-image_nav div {
     width: 30%;
+    background-color: #fff;
+    padding: 1%;
+    font-size: 0.8em;
 }
 /*******************************************************************************************/
 
@@ -475,7 +495,6 @@ img.repeated-image {
 .Modal_editor_content {
     background: rgb(255 255 255 / 90%);
     margin: 5% auto 1%;
-    padding: 0 1%;
     width: 80%;
     border-radius: 8px;
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.32);
@@ -524,3 +543,19 @@ img.repeated-image {
     padding: .5% 5%;
     border: none;
     border-radius: 5px;}
+
+
+/********************************************/
+
+
+.config-options {
+    display: flex;
+    flex-direction: column;
+}
+
+button.config-option {
+    margin: 2% 20%;
+    background-color: #182d14;
+    color: #fff;
+    padding: 1%;
+}
