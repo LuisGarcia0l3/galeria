@@ -5,26 +5,6 @@ class MenuCropper {
     this.cropper = null;
   }
 
-  createCropperOption() {
-    const cropperDiv = document.createElement('div');
-    cropperDiv.classList.add('config-option');
-    const cropperDivSpan = document.createElement('span');
-    cropperDivSpan.textContent = 'Recorte';
-    cropperDiv.appendChild(cropperDivSpan);
-    this.containerAreaOption.appendChild(cropperDiv);
-
-    cropperDiv.addEventListener('click', this.handleCropperOption.bind(this));
-  }
-
-  handleCropperOption() {
-    this.clearExistingOptions();
-
-    if (!this.cropper) {
-      this.initializeCropper();
-      this.createCropperButtons();
-    }
-  }
-
   initializeCropper() {
     this.cropper = new Cropper(this.image, {
       aspectRatio: 16 / 9,
@@ -34,8 +14,7 @@ class MenuCropper {
 
   createCropperButtons() {
     const buttonsContainer = document.createElement('div');
-    buttonsContainer.classList.add('config-options');
-    this.containerAreaOption.appendChild(buttonsContainer);
+    buttonsContainer.classList.add('cropper-buttons');
 
     const rotateLeftBtn = document.createElement('button');
     rotateLeftBtn.textContent = 'Rotar a la izquierda';
@@ -60,6 +39,8 @@ class MenuCropper {
     saveBtn.classList.add('config-option');
     buttonsContainer.appendChild(saveBtn);
     saveBtn.addEventListener('click', () => this.handleCropperButtonClick('save'));
+
+    return buttonsContainer;
   }
 
   handleCropperButtonClick(button) {
@@ -77,11 +58,6 @@ class MenuCropper {
         const croppedCanvas = this.cropper.getCroppedCanvas();
         break;
     }
-  }
-
-  clearExistingOptions() {
-    const existingOptions = this.containerAreaOption.querySelectorAll('.config-options');
-    existingOptions.forEach(option => option.remove());
   }
 
   destroyCropper() {

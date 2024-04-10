@@ -1,27 +1,8 @@
-
 class MenuAdjust {
   constructor(containerAreaOption, image) {
     this.containerAreaOption = containerAreaOption;
     this.image = image;
     this.caman = null;
-  }
-
-  createAdjustOption() {
-    const adjustDiv = document.createElement('div');
-    adjustDiv.textContent = 'Ajuste General';
-    adjustDiv.classList.add('config-option');
-    this.containerAreaOption.appendChild(adjustDiv);
-
-    adjustDiv.addEventListener('click', this.handleAdjustOption.bind(this));
-  }
-
-  handleAdjustOption() {
-    this.clearExistingOptions();
-
-    if (!this.caman) {
-      this.initializeCaman();
-      this.createAdjustControls();
-    }
   }
 
   initializeCaman() {
@@ -31,18 +12,14 @@ class MenuAdjust {
   }
 
   createAdjustControls() {
-    const existingConfigOptions = this.containerAreaOption.querySelector('.config-options');
-    if (existingConfigOptions) {
-      existingConfigOptions.style.display = 'block';
-    } else {
-      const camanContainer = document.createElement('div');
-      camanContainer.classList.add('config-options', 'btn-group', 'btn-group-sm');
-      this.containerAreaOption.querySelector('.config-option:nth-child(2)').appendChild(camanContainer);
+    const adjustContainer = document.createElement('div');
+    adjustContainer.classList.add('adjust-controls');
 
-      this.createBrightnessSlider(camanContainer);
-      this.createContrastSlider(camanContainer);
-      this.createSaturationSlider(camanContainer);
-    }
+    this.createBrightnessSlider(adjustContainer);
+    this.createContrastSlider(adjustContainer);
+    this.createSaturationSlider(adjustContainer);
+
+    return adjustContainer;
   }
 
   createBrightnessSlider(container) {
@@ -103,11 +80,6 @@ class MenuAdjust {
       this.revert(false);
       this.saturation(value).render();
     });
-  }
-
-  clearExistingOptions() {
-    const existingOptions = this.containerAreaOption.querySelectorAll('.config-options');
-    existingOptions.forEach(option => option.remove());
   }
 
   destroyCaman() {

@@ -559,3 +559,8 @@ button.config-option {
     color: #fff;
     padding: 1%;
 }
+
+
+canvas#image_edit {
+    width: 50%;
+}
