@@ -1,16 +1,18 @@
 class MenuAdjust {
-  constructor(containerAreaOption, image) {
+  constructor(containerAreaOption, image, menuCropper) {
     this.containerAreaOption = containerAreaOption;
     this.image = image;
     this.caman = null;
+    this.menuCropper = menuCropper;
   }
 
   initializeCaman() {
-    this.caman = Caman('#image_edit', function () {
-      // Configuración inicial de Caman
-    });
+    console.log("Inicilizando caman")
+      this.caman = Caman('#image_edit', function () {
+        // Configuración inicial de Caman
+      });
+    
   }
-
   createAdjustControls() {
     const adjustContainer = document.createElement('div');
     adjustContainer.classList.add('adjust-controls');
@@ -23,6 +25,18 @@ class MenuAdjust {
   }
 
   createBrightnessSlider(container) {
+    const brightnessContainer = document.createElement('div');
+    brightnessContainer.classList.add('config-option-container');
+  
+    const brightnessLabel = document.createElement('label');
+    brightnessLabel.textContent = 'Brightness:';
+    brightnessContainer.appendChild(brightnessLabel);
+  
+    const brightnessValue = document.createElement('span');
+    brightnessValue.textContent = '0';
+    brightnessValue.classList.add('config-value');
+    brightnessContainer.appendChild(brightnessValue);
+  
     const brightnessInput = document.createElement('input');
     brightnessInput.type = 'range';
     brightnessInput.min = '-100';
@@ -30,11 +44,28 @@ class MenuAdjust {
     brightnessInput.value = '0';
     brightnessInput.step = '1';
     brightnessInput.classList.add('config-option', 'brightness-slider');
-    container.appendChild(brightnessInput);
-    brightnessInput.addEventListener('input', this.handleBrightnessChange.bind(this));
+    brightnessContainer.appendChild(brightnessInput);
+    container.appendChild(brightnessContainer);
+  
+    brightnessInput.addEventListener('input', () => {
+      brightnessValue.textContent = brightnessInput.value;
+      this.handleBrightnessChange(brightnessInput.value);
+    });
   }
-
+  
   createContrastSlider(container) {
+    const contrastContainer = document.createElement('div');
+    contrastContainer.classList.add('config-option-container');
+  
+    const contrastLabel = document.createElement('label');
+    contrastLabel.textContent = 'Contrast:';
+    contrastContainer.appendChild(contrastLabel);
+  
+    const contrastValue = document.createElement('span');
+    contrastValue.textContent = '0';
+    contrastValue.classList.add('config-value');
+    contrastContainer.appendChild(contrastValue);
+  
     const contrastInput = document.createElement('input');
     contrastInput.type = 'range';
     contrastInput.min = '-100';
@@ -42,11 +73,28 @@ class MenuAdjust {
     contrastInput.value = '0';
     contrastInput.step = '1';
     contrastInput.classList.add('config-option', 'contrast-slider');
-    container.appendChild(contrastInput);
-    contrastInput.addEventListener('input', this.handleContrastChange.bind(this));
+    contrastContainer.appendChild(contrastInput);
+    container.appendChild(contrastContainer);
+  
+    contrastInput.addEventListener('input', () => {
+      contrastValue.textContent = contrastInput.value;
+      this.handleContrastChange(contrastInput.value);
+    });
   }
-
+  
   createSaturationSlider(container) {
+    const saturationContainer = document.createElement('div');
+    saturationContainer.classList.add('config-option-container');
+  
+    const saturationLabel = document.createElement('label');
+    saturationLabel.textContent = 'Saturation:';
+    saturationContainer.appendChild(saturationLabel);
+  
+    const saturationValue = document.createElement('span');
+    saturationValue.textContent = '0';
+    saturationValue.classList.add('config-value');
+    saturationContainer.appendChild(saturationValue);
+  
     const saturationInput = document.createElement('input');
     saturationInput.type = 'range';
     saturationInput.min = '-100';
@@ -54,38 +102,45 @@ class MenuAdjust {
     saturationInput.value = '0';
     saturationInput.step = '1';
     saturationInput.classList.add('config-option', 'saturation-slider');
-    container.appendChild(saturationInput);
-    saturationInput.addEventListener('input', this.handleSaturationChange.bind(this));
-  }
-
-  handleBrightnessChange(event) {
-    const value = parseInt(event.target.value);
-    Caman('#image_edit', function () {
-      this.revert(false);
-      this.brightness(value).render();
+    saturationContainer.appendChild(saturationInput);
+    container.appendChild(saturationContainer);
+  
+    saturationInput.addEventListener('input', () => {
+      saturationValue.textContent = saturationInput.value;
+      this.handleSaturationChange(saturationInput.value);
     });
   }
-
-  handleContrastChange(event) {
-    const value = parseInt(event.target.value);
+  
+  handleBrightnessChange(value) {
+    this.menuCropper.destroyCropper(); // Detener Cropper.js
+    const intValue = parseInt(value);
     Caman('#image_edit', function () {
       this.revert(false);
-      this.contrast(value).render();
+      this.brightness(intValue).render();
     });
   }
-
-  handleSaturationChange(event) {
-    const value = parseInt(event.target.value);
+  
+  handleContrastChange(value) {
+    this.menuCropper.destroyCropper(); // Detener Cropper.js
+    const intValue = parseInt(value);
     Caman('#image_edit', function () {
       this.revert(false);
-      this.saturation(value).render();
+      this.contrast(intValue).render();
     });
   }
-
+  
+  handleSaturationChange(value) {
+    this.menuCropper.destroyCropper(); // Detener Cropper.js
+    const intValue = parseInt(value);
+    Caman('#image_edit', function () {
+      this.revert(false);
+      this.saturation(intValue).render();
+    });
+  }
+  
   destroyCaman() {
-    if (this.caman) {
-      this.caman.reset();
+      console.log(this.caman)
       this.caman = null;
     }
-  }
+  
 }

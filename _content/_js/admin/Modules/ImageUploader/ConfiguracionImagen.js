@@ -7,14 +7,14 @@ class ConfiguracionImagen {
     this.selectedOption = '';
     this.menuCropper = null;
     this.menuAdjust = null;
-
+  
     this.initializeMenus();
     this.showConfigMenu();
   }
 
   initializeMenus() {
-    this.menuCropper = new MenuCropper(this.containerAreaOption, this.image);
-    this.menuAdjust = new MenuAdjust(this.containerAreaOption, this.image);
+    this.menuCropper = new MenuCropper(this.containerAreaOption, this.image,this.menuAdjust);
+    this.menuAdjust = new MenuAdjust(this.containerAreaOption, this.image, this.menuCropper);
   }
 
   showConfigMenu() {
@@ -30,10 +30,8 @@ class ConfiguracionImagen {
     configMenuContainer.appendChild(adjustOption);
 
     this.containerAreaOption.appendChild(configMenuContainer);
+}
 
-    this.menuCropper.createCropperButtons();
-    this.menuAdjust.createAdjustControls();
-  }
 
   createMenuOption(option, text) {
     const optionContainer = document.createElement('div');
@@ -55,15 +53,15 @@ class ConfiguracionImagen {
     return optionContainer;
   }
 
+
+
   handleOptionSelect(option) {
     this.selectedOption = option;
 
     if (option === 'cropper') {
-      this.menuAdjust.destroyCaman();
       this.menuCropper.initializeCropper();
     } else if (option === 'adjust') {
       this.menuCropper.destroyCropper();
-      this.menuAdjust.initializeCaman();
     }
   }
 }

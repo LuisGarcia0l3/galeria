@@ -562,5 +562,17 @@ button.config-option {
 
 
 canvas#image_edit {
-    width: 50%;
+    width: 100%;
+}
+
+
+.cropper-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.adjust-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

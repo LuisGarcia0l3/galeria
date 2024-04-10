@@ -1,69 +1,84 @@
 class MenuCropper {
-  constructor(containerAreaOption, image) {
+  constructor(containerAreaOption, image, menuAdjust) {
     this.containerAreaOption = containerAreaOption;
     this.image = image;
     this.cropper = null;
+    this.menuAdjust = menuAdjust;
   }
 
   initializeCropper() {
+
     this.cropper = new Cropper(this.image, {
       aspectRatio: 16 / 9,
-      // Otras opciones de configuración de Cropper.js
+      // Other Cropper.js configuration options
     });
+    console.log(this.cropper)
   }
 
   createCropperButtons() {
     const buttonsContainer = document.createElement('div');
     buttonsContainer.classList.add('cropper-buttons');
 
-    const rotateLeftBtn = document.createElement('button');
-    rotateLeftBtn.textContent = 'Rotar a la izquierda';
-    rotateLeftBtn.classList.add('config-option');
-    buttonsContainer.appendChild(rotateLeftBtn);
-    rotateLeftBtn.addEventListener('click', () => this.handleCropperButtonClick('rotateLeft'));
-
-    const rotateRightBtn = document.createElement('button');
-    rotateRightBtn.textContent = 'Rotar a la derecha';
-    rotateRightBtn.classList.add('config-option');
-    buttonsContainer.appendChild(rotateRightBtn);
-    rotateRightBtn.addEventListener('click', () => this.handleCropperButtonClick('rotateRight'));
-
-    const resetBtn = document.createElement('button');
-    resetBtn.textContent = 'Restablecer';
-    resetBtn.classList.add('config-option');
-    buttonsContainer.appendChild(resetBtn);
-    resetBtn.addEventListener('click', () => this.handleCropperButtonClick('reset'));
-
-    const saveBtn = document.createElement('button');
-    saveBtn.textContent = 'Guardar';
-    saveBtn.classList.add('config-option');
-    buttonsContainer.appendChild(saveBtn);
-    saveBtn.addEventListener('click', () => this.handleCropperButtonClick('save'));
+    this.createRotateLeftButton(buttonsContainer);
+    this.createRotateRightButton(buttonsContainer);
+    this.createResetButton(buttonsContainer);
+    this.createSaveButton(buttonsContainer);
 
     return buttonsContainer;
   }
 
-  handleCropperButtonClick(button) {
-    switch (button) {
-      case 'rotateLeft':
-        this.cropper.rotate(-90);
-        break;
-      case 'rotateRight':
-        this.cropper.rotate(90);
-        break;
-      case 'reset':
-        this.cropper.reset();
-        break;
-      case 'save':
-        const croppedCanvas = this.cropper.getCroppedCanvas();
-        break;
-    }
+  createRotateLeftButton(container) {
+    const rotateLeftBtn = document.createElement('button');
+    rotateLeftBtn.textContent = 'Rotate Left';
+    rotateLeftBtn.classList.add('config-option');
+    container.appendChild(rotateLeftBtn);
+    rotateLeftBtn.addEventListener('click', () => this.handleRotateLeft());
+  }
+
+  createRotateRightButton(container) {
+    const rotateRightBtn = document.createElement('button');
+    rotateRightBtn.textContent = 'Rotate Right';
+    rotateRightBtn.classList.add('config-option');
+    container.appendChild(rotateRightBtn);
+    rotateRightBtn.addEventListener('click', () => this.handleRotateRight());
+  }
+
+  createResetButton(container) {
+    const resetBtn = document.createElement('button');
+    resetBtn.textContent = 'Reset';
+    resetBtn.classList.add('config-option');
+    container.appendChild(resetBtn);
+    resetBtn.addEventListener('click', () => this.handleReset());
+  }
+
+  createSaveButton(container) {
+    const saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.classList.add('config-option');
+    container.appendChild(saveBtn);
+    saveBtn.addEventListener('click', () => this.handleSave());
+  }
+
+  handleRotateLeft() {
+    this.cropper.rotate(-90);
+  }
+
+  handleRotateRight() {
+    this.cropper.rotate(90);
+  }
+
+  handleReset() {
+    this.cropper.reset();
+  }
+
+  handleSave() {
+    const croppedCanvas = this.cropper.getCroppedCanvas();
+    console.log(croppedCanvas);
   }
 
   destroyCropper() {
-    if (this.cropper) {
       this.cropper.destroy();
       this.cropper = null;
-    }
+
   }
 }
